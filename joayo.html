@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- 결과: <div id="root"><button>Like</button></div> -->
+    <script type="text/babel">
+        // type은 render 2번째꺼 바벨 때문에
+        const e = React.createElement;
+
+        class LikeButton extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    likeBtnCliked :0,
+                }
+            }
+            render() {
+                // 조아요 버튼 만들겟다
+                
+                // return e('button', {
+                //     onClick: ()=>{
+                //         this.setState({likeBtnCliked: ++this.state.likeBtnCliked});
+                //         //alert(this.state.likeBtnCliked+"번 좋아요?");
+                //     },
+                //     type:'submit',
+                // }/*html 속성을 넣는 자리, 객체로 포현*/, 'Like '+this.state.likeBtnCliked); // <button>Like</button>
+                
+
+                // js를 html처럼 쓰기위해 바벨이 필요함
+                // jsx : js + XML
+                return <button 
+                    type='submit' 
+                    onClick={()=>{
+                        this.setState({likeBtnCliked: ++this.state.likeBtnCliked});
+                    }}>
+                        {'Like '+this.state.likeBtnCliked}
+                    </button>;
+            }
+        }
+    </script>
+    <script type="text/babel">
+        // type은 render 2번째꺼때문에
+        // 화면에 붙이겠다
+        
+        //ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+
+        ReactDOM.render(<div><LikeButton/><LikeButton/><LikeButton/></div>, document.querySelector('#root'));
+    </script>
+</body>
+</html>
