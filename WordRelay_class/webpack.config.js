@@ -14,11 +14,22 @@ module.exports = {
 
     module: {  // entry를 읽어서 modules를 적용해서 output으로 뺀다
         rules: [{
-            test: /\.jsx/,  //정규표현식 js와 jsx파일에 룰을 적용하겠다
+            test: /\.jsx?$/,  //정규표현식 js와 jsx파일에 룰을 적용하겠다
             loader: 'babel-loader', // 바벨로더를 적용해서 최신문법을 구문법으로 교체하여 호환되게 하겠다
             options:{
-                presets:['@babel/preset-env', '@babel/preset-react'],
-                plugins:['@babel/plugin-proposal-class-properties'],
+                presets:[
+                    ['@babel/preset-env', {
+                        targets: {
+                            browsers:['> 2% in KR'],    //browserslist
+                        },
+                        debug: true,
+                    }],
+                    '@babel/preset-react'
+                ],
+                plugins:[
+                    '@babel/plugin-proposal-class-properties',
+                    'react-hot-loader/babel',
+                ],
             }
         }]
     },
@@ -26,5 +37,6 @@ module.exports = {
         //출력
         path: path.join(__dirname/* 현재폴더경로 */, 'dist'/* 앞에 인자에 합쳐줌*/),
         filename:'app.js',
+        publicPath:'/dist/'
     },
 };
